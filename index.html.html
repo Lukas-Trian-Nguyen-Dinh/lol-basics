@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>League of Legends – Die ersten Schritte</title>
+<style>
+:root{--bg:#f5f2ea;--surface:#fff;--ink:#14202e;--muted:#5b6776;--accent:#9a7416;--accent-ink:#fff;--line:#e0dccf;--ph:#ebe7da;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1420;--surface:#121f30;--ink:#eef1f5;--muted:#9aa8ba;--accent:#d7b25a;--accent-ink:#1a1405;--line:#24364d;--ph:#0e1a2a}}
+:root[data-theme="dark"]{--bg:#0b1420;--surface:#121f30;--ink:#eef1f5;--muted:#9aa8ba;--accent:#d7b25a;--accent-ink:#1a1405;--line:#24364d;--ph:#0e1a2a}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px}
+.bar{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted)}
+.track{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);transition:width .3s}
+main{max-width:720px;margin:0 auto;padding:24px 16px 64px}
+.hero{padding:24px 0 32px}
+.hero h1{font-size:clamp(28px,7vw,40px);line-height:1.15;margin:0 0 10px}
+.hero p{color:var(--muted);margin:0 0 20px}
+.btn{display:inline-block;border:0;border-radius:10px;padding:11px 18px;font:600 15px system-ui,sans-serif;cursor:pointer;text-decoration:none;background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost.on{border-color:var(--accent);color:var(--accent)}
+.ch{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:24px}
+.num{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.ch h2{margin:4px 0 14px;font-size:24px;line-height:1.2}
+.vid video,.vid iframe,.ph{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000}
+.ph{background:var(--ph);border:2px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);font-size:14px}
+.play{font-size:32px;color:var(--accent);line-height:1}
+.lead{margin:16px 0 8px}
+.pts{margin:0 0 20px;padding-left:20px;color:var(--muted)}
+.pts li{margin:4px 0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+.subs{margin:0 0 20px}
+.subs-h{font-size:13px;color:var(--muted);margin-bottom:8px}
+.sub{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--bg)}
+.sub summary{cursor:pointer;padding:12px 14px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.sub summary::-webkit-details-marker{display:none}
+.sub summary::after{content:"+";color:var(--accent);font-size:22px;line-height:1}
+.sub[open] summary::after{content:"–"}
+.subbody{padding:0 14px 6px}
+.fin{text-align:center;color:var(--muted);padding:8px 0}
+</style>
+</head>
+<body>
+<header><div class="bar"><span>LoL Basics</span><div class="track"><div class="fill" id="fill"></div></div><span id="cnt">0 / 0</span></div></header>
+<main>
+  <section class="hero">
+    <h1>League of Legends<br>How to get started in Lol</h1>
+    <p>Klick dich durch und schau dir die Kurzen Videos an. Nimm dir Zeit – du musst nicht alles auf einmal verstehen.</p>
+    <a class="btn" href="#k1">Charper 1</a>
+  </section>
+  <div id="chapters"></div>
+</main>
+<script>
+/* Hier kannst du alles anpassen.
+   video: Link zu einer .mp4-Datei (z. B. "videos/kapitel1.mp4") oder ein YouTube-Link. Leer lassen = Platzhalter. */
+const CHAPTERS=[
+{title:"Summoners Rift",video:"https://youtu.be/Y_1B_q8X2YM?si=WaCcRPkL-4ifEBFm",
+ text:"Zwei Teams mit je 5 Spielern kämpfen gegeneinander. Helfe deinem Team, den gegnerischen Nexus zu zerstören und Gewinne das Spiel.",
+ points:["Du steuerst genau einen Champion","Ein Spiel dauert meist 20–40 Minuten","Suche dir Vorteile und hilf deinem Team"],
+ },
+
+{title:"Die Karte",video:"",
+ text:"Die Karte hat drei Wege, genannt Lanes: Top, Mid und Bot. Dazwischen liegt der Dschungel mit neutralen Monstern. Um zum Nexus zu kommen, zerstörst du in einer Lane der Reihe nach Türme und den Inhibitor.",
+ points:["Meist spielt das Team: 1× Top, 1× Jungle, 1× Mid, 2× Bot","Gegnerische Türme schießen auf dich – nicht einfach daruntergehen","Die Minimap unten rechts zeigt dir, wo alle sind"],
+ },
+
+{title:"Weg zum Sieg",video:"",
+ text:"Etwa alle 30 Sekunden schickt jedes Team eine Welle kleiner Minions in die Lanes. Gold bekommst du nur, wenn du den letzten Treffer setzt – das nennt man „Last Hit“.",
+ points:["Gold gibt es auch für Champions und Türme","In der Basis kaufst du mit Gold Items, die dich stärker machen","Gut zum Üben: erstmal nur versuchen, Minions zu treffen"],
+ subs:[
+  {title:"Gold",video:"",text:"Durch das Töten von Sachen erhältst du Gold. Sammle Gold um Items zu kaufen und stärker zu werden."},
+  {title:"Exp",video:"",text:"Erhalte Exp wenn du in der nähe von sterbende Gegnern bist. Sammle Exp um deine Stats zu erhöhen und Fähigkeiten zu verbessern."},
+  {title:"Drache",video:"",text:"Das Team, welches den Drachen tötet, erhält einen permanenten Buff. Bezwinge 4 Drachen um die Drachenseele zu erhalten."},
+  {title:"Void Monster",video:"",text:"Extrem Starke Monster, die den Verlauf des Spiels entscheiden."},
+]},
+
+{title:"Checklist, bevor du die erste Runde beginnt",video:"",
+ text:"Es gibt ~170 Champions, 220 Items, 5 Positionen und 5 Runen arten, für die du dich entscheiden musst. Alle zu lernen ist viel zu Kompliziert und würde zu lange dauern. Wähle deswegen nur einen Champion, der dich anspricht aus und schlage im Internet(https://op.gg/lol/champions) die Idealen Einstellungen nach",
+ points:["Position","Summoner Spell","Runen","Fähigkeiten Reihenfolge","Items"],
+ subs:[
+  {title:"Position",video:"",text:"Ort und Rolle, die der Champion am besten besetzt."},
+  {title:"Summoner Spell",video:"",text:"Zusätzliche Fähigkeiten, die jeder Spieler bekommt, meistens mit einem Langen cooldown."},
+  {title:"Runen",video:"",text:"Kleine Passive Fähigkeiten, die sich vor dem Spiel einstellen lassen."},
+  {title:"Fähikeiten Reihenfolge",video:"",text:"Finde heraus welche Fähigkeiten dein Champion freischalten/verbessern will."},
+  {title:"Items",video:"",text:"In welcher Reihenfolge du welches Item im Shop kaufst."},
+]},
+
+{title:"Welcher Champion passt zu mir?",video:"",
+ text:"Da wir uns für einen entscheiden, ist es wichtg den richtigen zu finden. Das sind die wichtigsten Kriterien um den Perfecten Champ für dich zu finden",
+ points:["Character Design","Rolle","Klasse"],
+},
+
+
+{title:"Position",video:"",
+ text:"Es gibt in League of Legends 5 Rollen, die gespielt werden. Jede hat seine eigene Aufgabe und Spielweise",
+ points:["Schau dir an welche Rolle dich anspricht"],
+ subs:[
+  {title:"Top Lane",video:"",text:"Die Lane ganz oben, meist 1 gegen 1. Hier spielen oft robuste Champions, die viel aushalten. Du bist etwas weiter weg vom Rest des Teams und spielst deshalb oft für dich allein."},
+  {title:"Jungle",video:"",text:"Du spielst nicht in einer Lane, sondern im Dschungel: Du tötest neutrale Monster für Gold und Level und hilfst den Lanes bei Angriffen."},
+  {title:"Mid Lane",video:"",text:"Die Lane in der Mitte, von hier bist du schnell bei allen anderen Lanes. Oft spielen hier Champions, die viel Schaden machen."},
+  {title:"Bot Lane",video:"",text:"Hier spielen zwei Spieler zusammen: der Carry, der später viel Schaden macht, und der Support, der ihn schützt und unterstützt."},
+  {title:"Support",video:"",text:"Hier spielen zwei Spieler zusammen: der Carry, der später viel Schaden macht, und der Support, der ihn schützt und unterstützt."}
+]
+
+},
+
+{title:"Klasse",video:"",
+ text:"xxx",
+ points:["xxx","xxx"],
+ subs:[
+  {title:"Tank",video:"",text:""},
+  {title:"Fighter",video:"",text:""},
+  {title:"Mage",video:"",text:""},
+  {title:"Assasin",video:"",text:""},
+  {title:"Marksman",video:"",text:""},
+  {title:"Support",video:"",text:""}
+]
+
+},
+
+ {title:"Game Overview",video:"",
+ text:"League of Legends spielt man fast nur mit der Maus und vier Tasten. Das ist schneller gelernt, als es aussieht.",
+ points:["Early Game","Mid Game","Late Game"],
+ subs:[
+  {title:"Early Game",video:"",text:""},
+  {title:"Mid Game",video:"",text:""},
+  {title:"End Game",video:"",text:""},
+]
+},
+{title:"Zusammenfassung",video:"",
+ text:"Nach dem Kapitel solltest du die Kern Prinzipien von League of Legends verstanden haben und bist in der Lage eind Spiel anzuschauen und verstehen was abgeht. Außderdem solltest du alle Vorbereitungen getroffen haben, deine erste Runde League of Legends zu spielen.",
+ points:["Aufbau der Map","Gold, Exp und Monster","Dein Champion mit allen Runen, Fähigkeiten und Items"],
+ }
+
+];
+
+const KEY="lol-basics-done";
+let done=new Set();
+try{done=new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify([...done]))}catch(e){}}
+
+function media(c){
+  const v=(c.video||"").trim();
+  if(!v)return '<div class="ph"><div class="play">▶</div><div>Video folgt · ca. 40 Sek.</div></div>';
+  if(/youtu\.?be/.test(v)){
+    const m=v.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);
+    if(m)return '<iframe src="https://www.youtube-nocookie.com/embed/'+m[1]+'?rel=0&playsinline=1" title="'+c.title+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>';
+  }
+  return '<video controls playsinline preload="metadata" src="'+v+'"></video>';
+}
+
+function progress(){
+  const n=CHAPTERS.length;
+  document.getElementById("fill").style.width=(done.size/n*100)+"%";
+  document.getElementById("cnt").textContent=done.size+" / "+n;
+}
+
+function subsHtml(c){
+  if(!c.subs||!c.subs.length)return "";
+  return '<div class="subs"><div class="subs-h">Mehr dazu – öffne, was dich interessiert</div>'+
+    c.subs.map(d=>
+      '<details class="sub"><summary>'+d.title+'</summary><div class="subbody"><div class="vid">'+media(d)+'</div>'+
+      '<p class="lead">'+d.text+'</p>'+
+      (d.points?'<ul class="pts">'+d.points.map(p=>'<li>'+p+'</li>').join("")+'</ul>':'')+
+      '</div></details>').join("")+'</div>';
+}
+
+const root=document.getElementById("chapters");
+CHAPTERS.forEach((c,i)=>{
+  const last=i===CHAPTERS.length-1;
+  const s=document.createElement("section");
+  s.className="ch";s.id="k"+(i+1);
+  s.innerHTML=
+    '<div class="num">Kapitel '+(i+1)+' / '+CHAPTERS.length+'</div>'+
+    '<h2>'+c.title+'</h2>'+
+    '<div class="vid">'+media(c)+'</div>'+
+    '<p class="lead">'+c.text+'</p>'+
+    '<ul class="pts">'+c.points.map(p=>'<li>'+p+'</li>').join("")+'</ul>'+
+    subsHtml(c)+
+    '<div class="actions"><button class="btn ghost" data-i="'+i+'"></button>'+
+    (last?'':'<a class="btn" href="#k'+(i+2)+'">Weiter →</a>')+'</div>';
+  root.appendChild(s);
+});
+const fin=document.createElement("p");
+fin.className="fin";fin.textContent="Im nächsten Kapilel geht es dann darum, wie man wirlich spielt";
+root.appendChild(fin);
+
+function paint(btn){
+  const on=done.has(+btn.dataset.i);
+  btn.classList.toggle("on",on);
+  btn.textContent=on?"✓ completed":"erledigt?";
+}
+root.querySelectorAll("button[data-i]").forEach(b=>{
+  paint(b);
+  b.addEventListener("click",()=>{
+    const i=+b.dataset.i;
+    done.has(i)?done.delete(i):done.add(i);
+    save();paint(b);progress();
+  });
+});
+progress();
+</script>
+</body>
+</html>
