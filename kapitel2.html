@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>League of Legends – Steuerung &amp; Spells</title>
+<title>League of Legends – Steuerung &amp; Fähigkeiten</title>
 <style>
 :root{--bg:#f5f2ea;--surface:#fff;--ink:#14202e;--muted:#5b6776;--accent:#9a7416;--accent-ink:#fff;--line:#e0dccf;--ph:#ebe7da;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -50,8 +50,8 @@ kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;paddi
 <header><div class="bar"><span>LoL Basics · Kapitel 2</span><div class="track"><div class="fill" id="fill"></div></div><span id="cnt">0 / 0</span></div></header>
 <main>
   <section class="hero">
-    <h1>League of Legends<br>Steuerung &amp; Spells</h1>
-    <p>Hier lernst du, welche Taste was macht und welche Summoner Spells es gibt. Probier die Tasten am besten direkt im Spiel aus.</p>
+    <h1>League of Legends<br>Steuerung &amp; Fähigkeiten</h1>
+    <p>Hier lernst du die Kamera, die Fähigkeiten deines Champions und wie du einkaufst und dich mit dem Team verständigst. Probier die Tasten am besten direkt im Spiel aus.</p>
     <a class="btn" href="#k1">Los geht’s</a><a class="btn ghost" href="index.html">← Kapitel 1</a>
   </section>
   <div id="chapters"></div>
@@ -60,39 +60,37 @@ kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;paddi
 /* Hier kannst du alles anpassen.
    video: Link zu einer .mp4-Datei (z. B. "videos/kapitel1.mp4") oder ein YouTube-Link. Leer lassen = Platzhalter. */
 const CHAPTERS=[
-{title:"Maus & Bewegung",video:"",
- text:"Gespielt wird fast nur mit der Maus. Mit der rechten Maustaste sagst du deinem Champion, wohin er laufen oder wen er angreifen soll.",
- points:["<kbd>Rechtsklick</kbd> auf den Boden: laufen","<kbd>Rechtsklick</kbd> auf einen Gegner: normaler Angriff","<kbd>Linksklick</kbd>: etwas auswählen oder eine Fähigkeit auslösen"],
+{title:"Kamera",video:"",
+ text:"Die Kamera bestimmt, was du auf dem Bildschirm siehst. Wer die Karte im Blick hat, erkennt Gegner früher und trifft bessere Entscheidungen.",
+ points:["<kbd>Y</kbd>: Kamera an deinen Champion sperren oder lösen","<kbd>Leertaste</kbd> halten: Kamera springt zurück zu deinem Champion","Mauszeiger an den Bildschirmrand: Kamera verschieben (wenn sie gelöst ist)"],
  subs:[
-  {title:"Normaler Angriff",video:"",text:"Ein Rechtsklick auf einen Gegner startet den normalen Angriff (Auto-Attack). Nahkämpfer müssen dafür nah ran, Fernkämpfer schießen aus der Distanz. Genau damit setzt du auch deine Last Hits auf Minions."},
-  {title:"Angriffsbewegung",video:"",text:"Drücke <kbd>A</kbd> und klicke auf den Boden: Dein Champion läuft dorthin und greift unterwegs das nächste Ziel an. Praktisch, wenn du Minion-Wellen bekämpfst."},
-  {title:"Kamera",video:"",text:"Mit <kbd>Y</kbd> sperrst du die Kamera an deinen Champion oder löst sie wieder. Mit der <kbd>Leertaste</kbd> springt die Kamera zurück zu ihm. Ist sie gelöst, bewegst du sie am Bildschirmrand."},
-  {title:"Minimap",video:"",text:"Linksklick auf die Minimap bewegt die Kamera dorthin, Rechtsklick lässt deinen Champion dorthin laufen."},
+  {title:"Kamera gesperrt",video:"",text:"Die Kamera folgt immer deinem Champion. Das ist einfach für den Anfang, aber du siehst weniger von der Umgebung."},
+  {title:"Kamera gelöst",video:"",text:"Du bewegst die Kamera selbst mit der Maus am Bildschirmrand. So schaust du in die Lane voraus oder auf Gegner, ohne dich selbst zu bewegen. Mit der <kbd>Leertaste</kbd> holst du sie zurück."},
+  {title:"Minimap",video:"",text:"Linksklick auf die Minimap bewegt die Kamera dorthin, Rechtsklick lässt deinen Champion dorthin laufen. Schau regelmäßig drauf: Sie zeigt dir, wo dein Team und die Gegner sind."},
 ]},
 
 {title:"Fähigkeiten",video:"",
  text:"Jeder Champion hat vier Fähigkeiten auf den Tasten Q, W, E und R, dazu eine Passive, die immer von allein wirkt. Die R-Fähigkeit ist meist die stärkste und heißt Ultimate.",
  points:["<kbd>Q</kbd> <kbd>W</kbd> <kbd>E</kbd>: normale Fähigkeiten","<kbd>R</kbd>: Ultimate, erst ab Level 6 verfügbar","Nach jedem Einsatz müssen sie aufladen (Cooldown)"],
  subs:[
-  {title:"Fähigkeiten lernen",video:"",text:"Bei jedem Levelaufstieg bekommst du einen Fähigkeitspunkt. Halte <kbd>Strg</kbd> gedrückt und drücke Q, W, E oder R, um die Fähigkeit zu lernen oder zu verbessern. Du kannst auch auf das kleine Plus klicken. Die beste Reihenfolge hast du schon auf op.gg nachgeschlagen."},
   {title:"Passive",video:"",text:"Die Passive hat keine Taste. Sie wirkt automatisch und gibt deinem Champion seine besondere Eigenschaft."},
-  {title:"Zielen",video:"",text:"Normalerweise drückst du die Taste und klickst dann, um zu zielen. Mit der Option Schnellzauber in den Einstellungen wirkt die Fähigkeit sofort beim Tastendruck in Richtung deines Mauszeigers. Das ist schneller, aber braucht etwas Übung."},
-  {title:"Mana & Energie",video:"",text:"Viele Fähigkeiten kosten Mana (blauer Balken) oder Energie. Ist der Balken leer, kannst du nichts wirken. Manche Champions brauchen gar keins."},
+  {title:"Q, W und E",video:"",text:"Deine drei normalen Fähigkeiten. Du kannst sie ab Level 1 lernen und setzt sie oft ein, um Schaden zu machen, dich zu schützen oder Gegner zu kontrollieren. Ihre Cooldowns sind meist kurz."},
+  {title:"Ultimate (R)",video:"",text:"Die stärkste Fähigkeit deines Champions. Du schaltest sie ab Level 6 frei und verbesserst sie auf Level 11 und 16. Ihr Cooldown ist lang, dafür kann sie einen Kampf entscheiden."},
+  {title:"Fähigkeiten lernen",video:"",text:"Bei jedem Levelaufstieg bekommst du einen Fähigkeitspunkt. Halte <kbd>Strg</kbd> gedrückt und drücke Q, W, E oder R, um die Fähigkeit zu lernen oder zu verbessern. Du kannst auch auf das kleine Plus klicken. Die beste Reihenfolge hast du schon auf op.gg nachgeschlagen."},
+  {title:"Mana & Energie",video:"",text:"Viele Fähigkeiten kosten Mana (blauer Balken) oder Energie (gelber Balken). Mana füllt sich langsam auf, Energie schneller. Ist der Balken leer, kannst du nichts wirken. Manche Champions brauchen gar keins von beiden."},
 ]},
 
-{title:"Summoner Spells",video:"",
- text:"Vor dem Spiel wählst du zwei Summoner Spells. Sie liegen auf den Tasten D und F und können von jedem Champion genutzt werden. Dafür laden sie sehr lange auf.",
- points:["<kbd>D</kbd> und <kbd>F</kbd>: deine zwei Summoner Spells","Flash nehmen fast alle Spieler mit","Den zweiten Spell findest du bei deinem Champion auf op.gg"],
+{title:"Arten von Fähigkeiten",video:"",
+ text:"Nicht jede Fähigkeit wird gleich benutzt. Bei manchen suchst du dir ein Ziel aus, bei anderen musst du genau zielen. Die Art entscheidet, ob und wie sie trifft.",
+ points:["Point & Click: Ziel anklicken, trifft zuverlässig","Skillshot: in eine Richtung zielen, kann verfehlt werden","Bereich: einen Ort auf dem Boden wählen"],
  subs:[
-  {title:"Flash",video:"",text:"Du springst sofort ein Stück in Richtung deines Mauszeigers. Zum Fliehen oder um Gegner zu überraschen. Lädt etwa 5 Minuten auf."},
-  {title:"Ignite",video:"",text:"Setzt einen Gegner in Brand: Er nimmt einige Sekunden lang Schaden. Gut, um einen fast besiegten Gegner zu erledigen."},
-  {title:"Heal",video:"",text:"Heilt dich und einen Verbündeten in der Nähe und macht euch kurz schneller. Wird oft in der Bot Lane gespielt."},
-  {title:"Barrier",video:"",text:"Gibt dir kurz einen Schild, der Schaden abfängt. Hilft vor allem zerbrechlichen Champions."},
-  {title:"Exhaust",video:"",text:"Schwächt einen Gegner: Er ist langsamer und macht weniger Schaden. Gut gegen gefährliche Angreifer."},
-  {title:"Teleport",video:"",text:"Nach kurzer Wartezeit teleportierst du dich zu einem Gebäude, Minion oder Ward deines Teams. Oft in der Top Lane."},
-  {title:"Smite",video:"",text:"Nur für den Jungle: Fügt neutralen Monstern festen Schaden zu und hilft, Drache und Baron zu sichern. Der Jungler nimmt immer Smite."},
-  {title:"Cleanse",video:"",text:"Entfernt Betäubungen und andere Kontrolleffekte von dir. Nützlich, wenn die Gegner dich oft festhalten."},
-  {title:"Ghost",video:"",text:"Macht dich ein paar Sekunden deutlich schneller. Gut zum Verfolgen oder Fliehen."},
+  {title:"Point & Click",video:"",text:"Du wählst einen Gegner als Ziel. Die Fähigkeit trifft zuverlässig, solange er in Reichweite bleibt. Beispiel: Annies Q."},
+  {title:"Skillshot",video:"",text:"Du zielst in eine Richtung und ein Projektil fliegt los. Es trifft nur, wenn ein Gegner im Weg steht. Gegner können ausweichen, und Minions können das Projektil blockieren. Beispiel: Ezreals Q."},
+  {title:"Bereichsfähigkeit",video:"",text:"Du wählst einen Punkt auf dem Boden. Dort wirkt die Fähigkeit in einem Kreis, oft nach kurzer Verzögerung. Wer rechtzeitig herausläuft, nimmt keinen Schaden. Beispiel: Luxs E."},
+  {title:"Selbstzauber",video:"",text:"Braucht kein Ziel und wirkt sofort bei dir, zum Beispiel als Schild oder Tempo-Boost. Beispiel: Garens W."},
+  {title:"Verstärkung",video:"",text:"Die Fähigkeit macht deinen nächsten normalen Angriff stärker oder gibt ihm einen Zusatzeffekt. Du drückst die Taste und greifst danach an. Beispiel: Garens Q."},
+  {title:"Dash",video:"",text:"Dein Champion springt oder rennt ein Stück in eine Richtung. Gut zum Angreifen und zum Fliehen. Beispiel: Ezreals E."},
+  {title:"Zielmodus",video:"",text:"Normalerweise drückst du die Taste und klickst dann, um die Fähigkeit auszulösen. Mit der Option Schnellzauber in den Einstellungen wirkt sie sofort beim Tastendruck in Richtung deines Mauszeigers. Das ist schneller, braucht aber Übung."},
 ]},
 
 {title:"Shop, Items & Zurückkehren",video:"",
@@ -110,8 +108,8 @@ const CHAPTERS=[
 },
 
 {title:"Zusammenfassung",video:"",
- text:"Nach diesem Kapitel weißt du, welche Taste was macht, und hast dich für deine zwei Summoner Spells entschieden. Damit bist du bereit für deine erste Runde.",
- points:["Rechtsklick: laufen und angreifen","Q, W, E, R: Fähigkeiten. D, F: Summoner Spells","B: zurück zur Basis. 1–7: Items"],
+ text:"Nach diesem Kapitel weißt du, wie du die Kamera nutzt, welche Fähigkeiten dein Champion hat und wie sie funktionieren. Außerdem weißt du, wie du einkaufst und dich mit deinem Team verständigst.",
+ points:["<kbd>Y</kbd>: Kamera sperren oder lösen","Q, W, E, R: Fähigkeiten, jede mit eigener Zielart","B: zurück zur Basis. 1–7: Items"],
  }
 
 ];
