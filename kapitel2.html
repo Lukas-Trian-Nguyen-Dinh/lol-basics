@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>League of Legends – Steuerung &amp; Spells</title>
+<style>
+:root{--bg:#f5f2ea;--surface:#fff;--ink:#14202e;--muted:#5b6776;--accent:#9a7416;--accent-ink:#fff;--line:#e0dccf;--ph:#ebe7da;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1420;--surface:#121f30;--ink:#eef1f5;--muted:#9aa8ba;--accent:#d7b25a;--accent-ink:#1a1405;--line:#24364d;--ph:#0e1a2a}}
+:root[data-theme="dark"]{--bg:#0b1420;--surface:#121f30;--ink:#eef1f5;--muted:#9aa8ba;--accent:#d7b25a;--accent-ink:#1a1405;--line:#24364d;--ph:#0e1a2a}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px}
+.bar{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted)}
+.track{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);transition:width .3s}
+main{max-width:720px;margin:0 auto;padding:24px 16px 64px}
+.hero{padding:24px 0 32px}
+.hero h1{font-size:clamp(28px,7vw,40px);line-height:1.15;margin:0 0 10px}
+.hero p{color:var(--muted);margin:0 0 20px}
+.btn{display:inline-block;border:0;border-radius:10px;padding:11px 18px;font:600 15px system-ui,sans-serif;cursor:pointer;text-decoration:none;background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost.on{border-color:var(--accent);color:var(--accent)}
+.ch{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:24px}
+.num{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.ch h2{margin:4px 0 14px;font-size:24px;line-height:1.2}
+.vid video,.vid iframe,.ph{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000}
+.ph{background:var(--ph);border:2px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);font-size:14px}
+.play{font-size:32px;color:var(--accent);line-height:1}
+.lead{margin:16px 0 8px}
+.pts{margin:0 0 20px;padding-left:20px;color:var(--muted)}
+.pts li{margin:4px 0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+.subs{margin:0 0 20px}
+.subs-h{font-size:13px;color:var(--muted);margin-bottom:8px}
+.sub{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--bg)}
+.sub summary{cursor:pointer;padding:12px 14px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.sub summary::-webkit-details-marker{display:none}
+.sub summary::after{content:"+";color:var(--accent);font-size:22px;line-height:1}
+.sub[open] summary::after{content:"–"}
+.subbody{padding:0 14px 6px}
+.fin{text-align:center;color:var(--muted);padding:8px 0}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:0 6px;background:var(--bg);color:var(--ink);font:600 .85em ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap}
+.hero .btn+.btn{margin-left:8px}
+</style>
+</head>
+<body>
+<header><div class="bar"><span>LoL Basics · Kapitel 2</span><div class="track"><div class="fill" id="fill"></div></div><span id="cnt">0 / 0</span></div></header>
+<main>
+  <section class="hero">
+    <h1>League of Legends<br>Steuerung &amp; Spells</h1>
+    <p>Hier lernst du, welche Taste was macht und welche Summoner Spells es gibt. Probier die Tasten am besten direkt im Spiel aus.</p>
+    <a class="btn" href="#k1">Los geht’s</a><a class="btn ghost" href="index.html">← Kapitel 1</a>
+  </section>
+  <div id="chapters"></div>
+</main>
+<script>
+/* Hier kannst du alles anpassen.
+   video: Link zu einer .mp4-Datei (z. B. "videos/kapitel1.mp4") oder ein YouTube-Link. Leer lassen = Platzhalter. */
+const CHAPTERS=[
+{title:"Maus & Bewegung",video:"",
+ text:"Gespielt wird fast nur mit der Maus. Mit der rechten Maustaste sagst du deinem Champion, wohin er laufen oder wen er angreifen soll.",
+ points:["<kbd>Rechtsklick</kbd> auf den Boden: laufen","<kbd>Rechtsklick</kbd> auf einen Gegner: normaler Angriff","<kbd>Linksklick</kbd>: etwas auswählen oder eine Fähigkeit auslösen"],
+ subs:[
+  {title:"Normaler Angriff",video:"",text:"Ein Rechtsklick auf einen Gegner startet den normalen Angriff (Auto-Attack). Nahkämpfer müssen dafür nah ran, Fernkämpfer schießen aus der Distanz. Genau damit setzt du auch deine Last Hits auf Minions."},
+  {title:"Angriffsbewegung",video:"",text:"Drücke <kbd>A</kbd> und klicke auf den Boden: Dein Champion läuft dorthin und greift unterwegs das nächste Ziel an. Praktisch, wenn du Minion-Wellen bekämpfst."},
+  {title:"Kamera",video:"",text:"Mit <kbd>Y</kbd> sperrst du die Kamera an deinen Champion oder löst sie wieder. Mit der <kbd>Leertaste</kbd> springt die Kamera zurück zu ihm. Ist sie gelöst, bewegst du sie am Bildschirmrand."},
+  {title:"Minimap",video:"",text:"Linksklick auf die Minimap bewegt die Kamera dorthin, Rechtsklick lässt deinen Champion dorthin laufen."},
+]},
+
+{title:"Fähigkeiten",video:"",
+ text:"Jeder Champion hat vier Fähigkeiten auf den Tasten Q, W, E und R, dazu eine Passive, die immer von allein wirkt. Die R-Fähigkeit ist meist die stärkste und heißt Ultimate.",
+ points:["<kbd>Q</kbd> <kbd>W</kbd> <kbd>E</kbd>: normale Fähigkeiten","<kbd>R</kbd>: Ultimate, erst ab Level 6 verfügbar","Nach jedem Einsatz müssen sie aufladen (Cooldown)"],
+ subs:[
+  {title:"Fähigkeiten lernen",video:"",text:"Bei jedem Levelaufstieg bekommst du einen Fähigkeitspunkt. Halte <kbd>Strg</kbd> gedrückt und drücke Q, W, E oder R, um die Fähigkeit zu lernen oder zu verbessern. Du kannst auch auf das kleine Plus klicken. Die beste Reihenfolge hast du schon auf op.gg nachgeschlagen."},
+  {title:"Passive",video:"",text:"Die Passive hat keine Taste. Sie wirkt automatisch und gibt deinem Champion seine besondere Eigenschaft."},
+  {title:"Zielen",video:"",text:"Normalerweise drückst du die Taste und klickst dann, um zu zielen. Mit der Option Schnellzauber in den Einstellungen wirkt die Fähigkeit sofort beim Tastendruck in Richtung deines Mauszeigers. Das ist schneller, aber braucht etwas Übung."},
+  {title:"Mana & Energie",video:"",text:"Viele Fähigkeiten kosten Mana (blauer Balken) oder Energie. Ist der Balken leer, kannst du nichts wirken. Manche Champions brauchen gar keins."},
+]},
+
+{title:"Summoner Spells",video:"",
+ text:"Vor dem Spiel wählst du zwei Summoner Spells. Sie liegen auf den Tasten D und F und können von jedem Champion genutzt werden. Dafür laden sie sehr lange auf.",
+ points:["<kbd>D</kbd> und <kbd>F</kbd>: deine zwei Summoner Spells","Flash nehmen fast alle Spieler mit","Den zweiten Spell findest du bei deinem Champion auf op.gg"],
+ subs:[
+  {title:"Flash",video:"",text:"Du springst sofort ein Stück in Richtung deines Mauszeigers. Zum Fliehen oder um Gegner zu überraschen. Lädt etwa 5 Minuten auf."},
+  {title:"Ignite",video:"",text:"Setzt einen Gegner in Brand: Er nimmt einige Sekunden lang Schaden. Gut, um einen fast besiegten Gegner zu erledigen."},
+  {title:"Heal",video:"",text:"Heilt dich und einen Verbündeten in der Nähe und macht euch kurz schneller. Wird oft in der Bot Lane gespielt."},
+  {title:"Barrier",video:"",text:"Gibt dir kurz einen Schild, der Schaden abfängt. Hilft vor allem zerbrechlichen Champions."},
+  {title:"Exhaust",video:"",text:"Schwächt einen Gegner: Er ist langsamer und macht weniger Schaden. Gut gegen gefährliche Angreifer."},
+  {title:"Teleport",video:"",text:"Nach kurzer Wartezeit teleportierst du dich zu einem Gebäude, Minion oder Ward deines Teams. Oft in der Top Lane."},
+  {title:"Smite",video:"",text:"Nur für den Jungle: Fügt neutralen Monstern festen Schaden zu und hilft, Drache und Baron zu sichern. Der Jungler nimmt immer Smite."},
+  {title:"Cleanse",video:"",text:"Entfernt Betäubungen und andere Kontrolleffekte von dir. Nützlich, wenn die Gegner dich oft festhalten."},
+  {title:"Ghost",video:"",text:"Macht dich ein paar Sekunden deutlich schneller. Gut zum Verfolgen oder Fliehen."},
+]},
+
+{title:"Shop, Items & Zurückkehren",video:"",
+ text:"Dein Gold gibst du im Shop aus. Den kannst du nur in deiner Basis benutzen. Gekaufte Items liegen in deinem Inventar und lassen sich mit den Zifferntasten benutzen.",
+ points:["<kbd>B</kbd>: zurück zur Basis (Recall)","<kbd>P</kbd>: Shop öffnen und schließen","<kbd>1</kbd>–<kbd>7</kbd>: Items benutzen (die <kbd>4</kbd> ist das Trinket)"],
+ subs:[
+  {title:"Recall",video:"",text:"Mit <kbd>B</kbd> kehrst du nach etwa 8 Sekunden in die Basis zurück, heilst dich und kaufst ein. Wirst du dabei getroffen oder bewegst dich, wird der Recall abgebrochen. Mach es also nur, wenn kein Gegner in der Nähe ist."},
+  {title:"Trinket",video:"",text:"Das Trinket ist ein kostenloser Gegenstand auf Taste <kbd>4</kbd>. Meist ist das eine Ward: Du setzt sie auf den Boden und siehst dadurch einen Bereich der Karte, ohne selbst dort zu sein."},
+  {title:"Items benutzen",video:"",text:"Manche Items haben eine aktive Fähigkeit. Du löst sie mit der Zifferntaste des Inventarplatzes aus, in dem das Item liegt."},
+]},
+
+{title:"Team & Übersicht",video:"",
+ text:"Im Spiel musst du dich mit deinem Team verständigen, ohne viel zu tippen. Dafür gibt es Pings und einen Chat. Alle Tasten sind Standardbelegungen und lassen sich in den Einstellungen unter Hotkeys ändern.",
+ points:["Pings: Zeichen für dein Team, z. B. Gefahr oder Bin unterwegs","<kbd>Tab</kbd> halten: Übersicht mit Kills, Level und Items","<kbd>Enter</kbd>: Chat öffnen"],
+},
+
+{title:"Zusammenfassung",video:"",
+ text:"Nach diesem Kapitel weißt du, welche Taste was macht, und hast dich für deine zwei Summoner Spells entschieden. Damit bist du bereit für deine erste Runde.",
+ points:["Rechtsklick: laufen und angreifen","Q, W, E, R: Fähigkeiten. D, F: Summoner Spells","B: zurück zur Basis. 1–7: Items"],
+ }
+
+];
+
+const KEY="lol-basics-done-2";
+let done=new Set();
+try{done=new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify([...done]))}catch(e){}}
+
+function media(c){
+  const v=(c.video||"").trim();
+  if(!v)return '<div class="ph"><div class="play">▶</div><div>Video folgt · ca. 40 Sek.</div></div>';
+  if(/youtu\.?be/.test(v)){
+    const m=v.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);
+    if(m)return '<iframe src="https://www.youtube-nocookie.com/embed/'+m[1]+'?rel=0&playsinline=1" title="'+c.title+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>';
+  }
+  return '<video controls playsinline preload="metadata" src="'+v+'"></video>';
+}
+
+function progress(){
+  const n=CHAPTERS.length;
+  document.getElementById("fill").style.width=(done.size/n*100)+"%";
+  document.getElementById("cnt").textContent=done.size+" / "+n;
+}
+
+function subsHtml(c){
+  if(!c.subs||!c.subs.length)return "";
+  return '<div class="subs"><div class="subs-h">Mehr dazu – öffne, was dich interessiert</div>'+
+    c.subs.map(d=>
+      '<details class="sub"><summary>'+d.title+'</summary><div class="subbody"><div class="vid">'+media(d)+'</div>'+
+      '<p class="lead">'+d.text+'</p>'+
+      (d.points?'<ul class="pts">'+d.points.map(p=>'<li>'+p+'</li>').join("")+'</ul>':'')+
+      '</div></details>').join("")+'</div>';
+}
+
+const root=document.getElementById("chapters");
+CHAPTERS.forEach((c,i)=>{
+  const last=i===CHAPTERS.length-1;
+  const s=document.createElement("section");
+  s.className="ch";s.id="k"+(i+1);
+  s.innerHTML=
+    '<div class="num">Abschnitt '+(i+1)+' / '+CHAPTERS.length+'</div>'+
+    '<h2>'+c.title+'</h2>'+
+    '<div class="vid">'+media(c)+'</div>'+
+    '<p class="lead">'+c.text+'</p>'+
+    '<ul class="pts">'+c.points.map(p=>'<li>'+p+'</li>').join("")+'</ul>'+
+    subsHtml(c)+
+    '<div class="actions"><button class="btn ghost" data-i="'+i+'"></button>'+
+    (last?'':'<a class="btn" href="#k'+(i+2)+'">Weiter →</a>')+'</div>';
+  root.appendChild(s);
+});
+const fin=document.createElement("p");
+fin.className="fin";fin.textContent="Viel Erfolg in deiner ersten Runde!";
+root.appendChild(fin);
+
+function paint(btn){
+  const on=done.has(+btn.dataset.i);
+  btn.classList.toggle("on",on);
+  btn.textContent=on?"✓ completed":"erledigt?";
+}
+root.querySelectorAll("button[data-i]").forEach(b=>{
+  paint(b);
+  b.addEventListener("click",()=>{
+    const i=+b.dataset.i;
+    done.has(i)?done.delete(i):done.add(i);
+    save();paint(b);progress();
+  });
+});
+progress();
+</script>
+</body>
+</html>

@@ -182,13 +182,9 @@ CHAPTERS.forEach((c,i)=>{
     '<ul class="pts">'+c.points.map(p=>'<li>'+p+'</li>').join("")+'</ul>'+
     subsHtml(c)+
     '<div class="actions"><button class="btn ghost" data-i="'+i+'"></button>'+
-    (last?'':'<a class="btn" href="#k'+(i+2)+'">Weiter →</a>')+'</div>';
+    (last?'<a class="btn" href="kapitel2.html">Weiter zu Kapitel 2 →</a>':'<a class="btn" href="#k'+(i+2)+'">Weiter →</a>')+'</div>';
   root.appendChild(s);
 });
-const fin=document.createElement("p");
-fin.className="fin";fin.textContent="Im nächsten Kapilel geht es dann darum, wie man wirlich spielt";
-root.appendChild(fin);
-
 function paint(btn){
   const on=done.has(+btn.dataset.i);
   btn.classList.toggle("on",on);
