@@ -4,10 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>League of Legends – Die ersten Schritte</title>
+<meta name="description" content="Der Einstieg in League of Legends für komplette Anfänger: Karte, Gold, Rollen, Klassen und dein erster Champion – mit kurzen Videos.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="LoL Basics">
+<meta property="og:title" content="LoL Basics · Kapitel 1: Die ersten Schritte">
+<meta property="og:description" content="Der Einstieg in League of Legends für komplette Anfänger: Karte, Gold, Rollen, Klassen und dein erster Champion – mit kurzen Videos.">
+<!-- VORSCHAUBILD: Sobald du ein Bild hast (am besten 1200×630 Pixel), lege es als "vorschau.png" in diesen Ordner,
+     entferne die Kommentarzeichen um die nächste Zeile und ändere unten "summary" in "summary_large_image".
+<meta property="og:image" content="https://lukas-trian-nguyen-dinh.github.io/lol-basics/vorschau.png">
+-->
+<meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header><div class="bar"><span>LoL Basics</span><div class="track"><div class="fill" id="fill"></div></div><span id="cnt">0 / 0</span></div></header>
+<header><div class="bar"><span>LoL Basics · Kapitel 1</span><div class="track"><div class="fill" id="fill"></div></div><span id="cnt">0 / 0</span></div></header>
 <main>
   <section class="hero">
     <h1>League of Legends<br>How to get started in Lol</h1>
@@ -20,7 +31,7 @@
 /* Hier kannst du alles anpassen.
    video: Link zu einer .mp4-Datei (z. B. "videos/kapitel1.mp4") oder ein YouTube-Link. Leer lassen = Platzhalter. */
 const CHAPTERS=[
-{title:"Summoners Rift",video:"https://youtu.be/Y_1B_q8X2YM?si=WaCcRPkL-4ifEBFm",
+{title:"Summoner’s Rift",video:"https://youtu.be/Y_1B_q8X2YM?si=WaCcRPkL-4ifEBFm",
  text:"Zwei Teams mit je 5 Spielern kämpfen gegeneinander. Hilf deinem Team, den gegnerischen Nexus zu zerstören, und gewinne das Spiel.",
  points:["Du steuerst genau einen Champion","Ein Spiel dauert meist 20–40 Minuten","Suche dir Vorteile und hilf deinem Team"],
  },
@@ -41,22 +52,20 @@ const CHAPTERS=[
    points:["Grubs: erscheinen früh im Spiel als kleine Gruppe. Je mehr dein Team tötet, desto mehr Schaden macht ihr an Türmen","Herold: kommt nach den Grubs. Wer ihn tötet, kann ihn später rufen, damit er gegnerische Türme rammt","Baron Nashor: ersetzt den Herold und ist das stärkste Monster. Das Team erhält einen Buff, der seine Minions deutlich stärker macht – ideal, um Türme zu zerstören"]},
 ]},
 
-{title:"Checkliste, bevor du die erste Runde beginnst",video:"",
- text:"Es gibt ~170 Champions, 220 Items, 5 Positionen und 5 Runenarten, für die du dich entscheiden musst. Alle zu lernen ist viel zu kompliziert und würde zu lange dauern. Wähle deswegen nur einen Champion aus, der dich anspricht, und schlage im Internet (z. B. auf <a href=\"https://op.gg/lol/champions\" target=\"_blank\" rel=\"noopener\">op.gg</a>) die idealen Einstellungen nach.",
- points:["Position","Summoner Spell","Runen","Fähigkeiten-Reihenfolge","Items"],
+{title:"Game Overview",video:"",
+ text:"Die Spielphasen in League of Legends sind Early Game, Mid Game und Late Game. Jede Phase hat ihre eigenen Ziele und Strategien. Im Early Game geht es darum, Gold und Erfahrung zu sammeln, im Mid Game um Teamkämpfe und Objectives, und im Late Game um den finalen Push zum Sieg.",
+ points:["Early Game","Mid Game","Late Game"],
  subs:[
-  {title:"Position",video:"",text:"Ort und Rolle, die der Champion am besten besetzt."},
-  {title:"Summoner Spell",video:"",text:"Zusätzliche Fähigkeiten, die jeder Spieler bekommt, meistens mit einem langen Cooldown."},
-  {title:"Runen",video:"",text:"Kleine passive Fähigkeiten, die sich vor dem Spiel einstellen lassen."},
-  {title:"Fähigkeiten-Reihenfolge",video:"",text:"Finde heraus, welche Fähigkeiten dein Champion zuerst freischalten und verbessern sollte."},
-  {title:"Items",video:"",text:"In welcher Reihenfolge du welches Item im Shop kaufst."},
-]},
+  {title:"Early Game",video:"",text:"Beide Teams sammeln Gold und Erfahrung, um stärker zu werden. Ziele sind das Farmen von Minions, das Töten von neutralen Monstern und das Gewinnen von kleinen Kämpfen."},
+  {title:"Mid Game",video:"",text:"Beide Teams kämpfen in Teams, um Objectives zu sichern und die Kontrolle über die Karte zu gewinnen. Ziele sind das Gewinnen von Teamkämpfen, das Zerstören von Türmen und das Sichern von Drachen und Baron Nashor."},
+  {title:"Late Game",video:"",text:"Beide Teams kämpfen um den finalen Sieg. Ziele sind das Gewinnen von Teamkämpfen, das Zerstören des gegnerischen Nexus und das Sichern von wichtigen Objectives."},
+]
+},
 
 {title:"Welcher Champion passt zu mir?",video:"",
  text:"Da du dich für einen Champion entscheidest, ist es wichtig, den richtigen zu finden. Das sind die wichtigsten Kriterien, um den perfekten Champion für dich zu finden:",
- points:["Character Design","Rolle","Klasse"],
+ points:["Character Design: Wähl einen Champion, dessen Aussehen und Stil dir gefallen – mit dem spielst du am liebsten","Rolle","Klasse"],
 },
-
 
 {title:"Position",video:"",
  text:"Es gibt in League of Legends 5 Rollen, die gespielt werden. Jede hat ihre eigene Aufgabe und Spielweise.",
@@ -85,18 +94,20 @@ const CHAPTERS=[
 
 },
 
- {title:"Game Overview",video:"",
- text:"Die Spielphasen in League of Legends sind Early Game, Mid Game und Late Game. Jede Phase hat ihre eigenen Ziele und Strategien. Im Early Game geht es darum, Gold und Erfahrung zu sammeln, im Mid Game um Teamkämpfe und Objectives, und im Late Game um den finalen Push zum Sieg.",
- points:["Early Game","Mid Game","Late Game"],
+{title:"Checkliste, bevor du die erste Runde beginnst",video:"",
+ text:"Es gibt ~170 Champions, 220 Items, 5 Positionen und 5 Runenarten, für die du dich entscheiden musst. Alle zu lernen ist viel zu kompliziert und würde zu lange dauern. Wähle deswegen nur einen Champion aus, der dich anspricht, und schlage im Internet (z. B. auf <a href=\"https://op.gg/lol/champions\" target=\"_blank\" rel=\"noopener\">op.gg</a>) die idealen Einstellungen nach.",
+ points:["Position","Summoner Spell","Runen","Fähigkeiten-Reihenfolge","Items"],
  subs:[
-  {title:"Early Game",video:"",text:"Beide Teams sammeln Gold und Erfahrung, um stärker zu werden. Ziele sind das Farmen von Minions, das Töten von neutralen Monstern und das Gewinnen von kleinen Kämpfen."},
-  {title:"Mid Game",video:"",text:"Beide Teams kämpfen in Teams, um Objectives zu sichern und die Kontrolle über die Karte zu gewinnen. Ziele sind das Gewinnen von Teamkämpfen, das Zerstören von Türmen und das Sichern von Drachen und Baron Nashor."},
-  {title:"Late Game",video:"",text:"Beide Teams kämpfen um den finalen Sieg. Ziele sind das Gewinnen von Teamkämpfen, das Zerstören des gegnerischen Nexus und das Sichern von wichtigen Objectives."},
-]
-},
+  {title:"Position",video:"",text:"Ort und Rolle, die der Champion am besten besetzt."},
+  {title:"Summoner Spell",video:"",text:"Zusätzliche Fähigkeiten, die jeder Spieler bekommt, meistens mit einem langen Cooldown."},
+  {title:"Runen",video:"",text:"Kleine passive Fähigkeiten, die sich vor dem Spiel einstellen lassen."},
+  {title:"Fähigkeiten-Reihenfolge",video:"",text:"Finde heraus, welche Fähigkeiten dein Champion zuerst freischalten und verbessern sollte."},
+  {title:"Items",video:"",text:"In welcher Reihenfolge du welches Item im Shop kaufst."},
+]},
+
 {title:"Zusammenfassung",video:"",
  text:"Nach diesem Kapitel solltest du die Kernprinzipien von League of Legends verstanden haben und in der Lage sein, ein Spiel anzuschauen und zu verstehen, was passiert. Außerdem solltest du alle Vorbereitungen getroffen haben, um deine erste Runde League of Legends zu spielen.",
- points:["Aufbau der Map","Gold, Exp und Monster","Dein Champion mit allen Runen, Fähigkeiten und Items"],
+ points:["Aufbau der Karte","Gold, Exp und Monster","Dein Champion mit allen Runen, Fähigkeiten und Items"],
  }
 
 ];
