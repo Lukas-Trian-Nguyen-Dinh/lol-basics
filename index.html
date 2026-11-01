@@ -49,8 +49,8 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 64px}
 <main>
   <section class="hero">
     <h1>League of Legends<br>How to get started in Lol</h1>
-    <p>Klick dich durch und schau dir die Kurzen Videos an. Nimm dir Zeit – du musst nicht alles auf einmal verstehen.</p>
-    <a class="btn" href="#k1">Charper 1</a>
+    <p>Klick dich durch und schau dir die kurzen Videos an. Nimm dir Zeit – du musst nicht alles auf einmal verstehen.</p>
+    <a class="btn" href="#k1">Los geht’s</a>
   </section>
   <div id="chapters"></div>
 </main>
@@ -59,7 +59,7 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 64px}
    video: Link zu einer .mp4-Datei (z. B. "videos/kapitel1.mp4") oder ein YouTube-Link. Leer lassen = Platzhalter. */
 const CHAPTERS=[
 {title:"Summoners Rift",video:"https://youtu.be/Y_1B_q8X2YM?si=WaCcRPkL-4ifEBFm",
- text:"Zwei Teams mit je 5 Spielern kämpfen gegeneinander. Helfe deinem Team, den gegnerischen Nexus zu zerstören und Gewinne das Spiel.",
+ text:"Zwei Teams mit je 5 Spielern kämpfen gegeneinander. Hilf deinem Team, den gegnerischen Nexus zu zerstören, und gewinne das Spiel.",
  points:["Du steuerst genau einen Champion","Ein Spiel dauert meist 20–40 Minuten","Suche dir Vorteile und hilf deinem Team"],
  },
 
@@ -72,32 +72,32 @@ const CHAPTERS=[
  text:"Etwa alle 30 Sekunden schickt jedes Team eine Welle kleiner Minions in die Lanes. Gold bekommst du nur, wenn du den letzten Treffer setzt – das nennt man „Last Hit“.",
  points:["Gold gibt es auch für Champions und Türme","In der Basis kaufst du mit Gold Items, die dich stärker machen","Gut zum Üben: erstmal nur versuchen, Minions zu treffen"],
  subs:[
-  {title:"Gold",video:"",text:"Durch das Töten von Sachen erhältst du Gold. Sammle Gold um Items zu kaufen und stärker zu werden."},
-  {title:"Exp",video:"",text:"Erhalte Exp wenn du in der nähe von sterbende Gegnern bist. Sammle Exp um deine Stats zu erhöhen und Fähigkeiten zu verbessern."},
-  {title:"Drache",video:"",text:"Das Team, welches den Drachen tötet, erhält einen permanenten Buff. Bezwinge 4 Drachen um die Drachenseele zu erhalten."},
-  {title:"Void Monster",video:"",text:"Extrem Starke Monster, die den Verlauf des Spiels entscheiden."},
+  {title:"Gold",video:"",text:"Durch das Töten von Gegnern und Monstern erhältst du Gold. Sammle Gold, um Items zu kaufen und stärker zu werden."},
+  {title:"Exp",video:"",text:"Du erhältst Exp, wenn du in der Nähe sterbender Gegner bist. Sammle Exp, um deine Stats zu erhöhen und Fähigkeiten zu verbessern."},
+  {title:"Drache",video:"",text:"Das Team, welches den Drachen tötet, erhält einen permanenten Buff. Bezwinge 4 Drachen, um die Drachenseele zu erhalten."},
+  {title:"Void Monster",video:"",text:"Extrem starke Monster, die den Verlauf des Spiels entscheiden."},
 ]},
 
-{title:"Checklist, bevor du die erste Runde beginnt",video:"",
- text:"Es gibt ~170 Champions, 220 Items, 5 Positionen und 5 Runen arten, für die du dich entscheiden musst. Alle zu lernen ist viel zu Kompliziert und würde zu lange dauern. Wähle deswegen nur einen Champion, der dich anspricht aus und schlage im Internet(https://op.gg/lol/champions) die Idealen Einstellungen nach",
- points:["Position","Summoner Spell","Runen","Fähigkeiten Reihenfolge","Items"],
+{title:"Checkliste, bevor du die erste Runde beginnst",video:"",
+ text:"Es gibt ~170 Champions, 220 Items, 5 Positionen und 5 Runenarten, für die du dich entscheiden musst. Alle zu lernen ist viel zu kompliziert und würde zu lange dauern. Wähle deswegen nur einen Champion aus, der dich anspricht, und schlage im Internet (z. B. auf <a href=\"https://op.gg/lol/champions\" target=\"_blank\" rel=\"noopener\">op.gg</a>) die idealen Einstellungen nach.",
+ points:["Position","Summoner Spell","Runen","Fähigkeiten-Reihenfolge","Items"],
  subs:[
   {title:"Position",video:"",text:"Ort und Rolle, die der Champion am besten besetzt."},
-  {title:"Summoner Spell",video:"",text:"Zusätzliche Fähigkeiten, die jeder Spieler bekommt, meistens mit einem Langen cooldown."},
-  {title:"Runen",video:"",text:"Kleine Passive Fähigkeiten, die sich vor dem Spiel einstellen lassen."},
-  {title:"Fähikeiten Reihenfolge",video:"",text:"Finde heraus welche Fähigkeiten dein Champion freischalten/verbessern will."},
+  {title:"Summoner Spell",video:"",text:"Zusätzliche Fähigkeiten, die jeder Spieler bekommt, meistens mit einem langen Cooldown."},
+  {title:"Runen",video:"",text:"Kleine passive Fähigkeiten, die sich vor dem Spiel einstellen lassen."},
+  {title:"Fähigkeiten-Reihenfolge",video:"",text:"Finde heraus, welche Fähigkeiten dein Champion zuerst freischalten und verbessern sollte."},
   {title:"Items",video:"",text:"In welcher Reihenfolge du welches Item im Shop kaufst."},
 ]},
 
 {title:"Welcher Champion passt zu mir?",video:"",
- text:"Da wir uns für einen entscheiden, ist es wichtg den richtigen zu finden. Das sind die wichtigsten Kriterien um den Perfecten Champ für dich zu finden",
+ text:"Da du dich für einen Champion entscheidest, ist es wichtig, den richtigen zu finden. Das sind die wichtigsten Kriterien, um den perfekten Champion für dich zu finden:",
  points:["Character Design","Rolle","Klasse"],
 },
 
 
 {title:"Position",video:"",
- text:"Es gibt in League of Legends 5 Rollen, die gespielt werden. Jede hat seine eigene Aufgabe und Spielweise",
- points:["Schau dir an welche Rolle dich anspricht"],
+ text:"Es gibt in League of Legends 5 Rollen, die gespielt werden. Jede hat ihre eigene Aufgabe und Spielweise.",
+ points:["Schau dir an, welche Rolle dich anspricht"],
  subs:[
   {title:"Top Lane",video:"",text:"Die Lane ganz oben, meist 1 gegen 1. Hier spielen oft robuste Champions, die viel aushalten. Du bist etwas weiter weg vom Rest des Teams und spielst deshalb oft für dich allein."},
   {title:"Jungle",video:"",text:"Du spielst nicht in einer Lane, sondern im Dschungel: Du tötest neutrale Monster für Gold und Level und hilfst den Lanes bei Angriffen."},
@@ -115,9 +115,9 @@ const CHAPTERS=[
   {title:"Tank",video:"",text:"Hohe Lebenspunkte, viel Rüstung und Magieresistenz. Tanks sind dafür da, Schaden abzufangen und das gegnerische Team zu immobilisieren."},
   {title:"Fighter",video:"",text:"Starke Nahkämpfer, die viel Schaden austeilen und einstecken können."},
   {title:"Mage",video:"",text:"Fernkämpfer, die viel Schaden mit ihren Fähigkeiten austeilen, aber auf Mana angewiesen sind."},
-  {title:"Assasin",video:"",text:"Charactere, die schnell und tödlich sind, um gegnerische Ziele zu eliminieren."},
+  {title:"Assassin",video:"",text:"Champions, die schnell und tödlich sind, um gegnerische Ziele zu eliminieren."},
   {title:"Marksman",video:"",text:"Fernkämpfer, die mit Autoattacks viel Schaden auf Distanz austeilen, aber sehr zerbrechlich sind."},
-  {title:"Support",video:"",text:"Charactere, die mit healen, schilden und crowd control das Team unterstützen."}
+  {title:"Support",video:"",text:"Champions, die das Team mit Heilung, Schilden und Crowd Control unterstützen."}
 ]
 
 },
@@ -132,7 +132,7 @@ const CHAPTERS=[
 ]
 },
 {title:"Zusammenfassung",video:"",
- text:"Nach dem Kapitel solltest du die Kern Prinzipien von League of Legends verstanden haben und bist in der Lage eind Spiel anzuschauen und verstehen was abgeht. Außderdem solltest du alle Vorbereitungen getroffen haben, deine erste Runde League of Legends zu spielen.",
+ text:"Nach diesem Kapitel solltest du die Kernprinzipien von League of Legends verstanden haben und in der Lage sein, ein Spiel anzuschauen und zu verstehen, was passiert. Außerdem solltest du alle Vorbereitungen getroffen haben, um deine erste Runde League of Legends zu spielen.",
  points:["Aufbau der Map","Gold, Exp und Monster","Dein Champion mit allen Runen, Fähigkeiten und Items"],
  }
 
