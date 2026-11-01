@@ -4,45 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>League of Legends – Die ersten Schritte</title>
-<style>
-:root{--bg:#f5f2ea;--surface:#fff;--ink:#14202e;--muted:#5b6776;--accent:#9a7416;--accent-ink:#fff;--line:#e0dccf;--ph:#ebe7da;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1420;--surface:#121f30;--ink:#eef1f5;--muted:#9aa8ba;--accent:#d7b25a;--accent-ink:#1a1405;--line:#24364d;--ph:#0e1a2a}}
-:root[data-theme="dark"]{--bg:#0b1420;--surface:#121f30;--ink:#eef1f5;--muted:#9aa8ba;--accent:#d7b25a;--accent-ink:#1a1405;--line:#24364d;--ph:#0e1a2a}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px}
-.bar{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted)}
-.track{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
-.fill{height:100%;width:0;background:var(--accent);transition:width .3s}
-main{max-width:720px;margin:0 auto;padding:24px 16px 64px}
-.hero{padding:24px 0 32px}
-.hero h1{font-size:clamp(28px,7vw,40px);line-height:1.15;margin:0 0 10px}
-.hero p{color:var(--muted);margin:0 0 20px}
-.btn{display:inline-block;border:0;border-radius:10px;padding:11px 18px;font:600 15px system-ui,sans-serif;cursor:pointer;text-decoration:none;background:var(--accent);color:var(--accent-ink)}
-.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn.ghost.on{border-color:var(--accent);color:var(--accent)}
-.ch{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:24px}
-.num{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
-.ch h2{margin:4px 0 14px;font-size:24px;line-height:1.2}
-.vid video,.vid iframe,.ph{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000}
-.ph{background:var(--ph);border:2px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);font-size:14px}
-.play{font-size:32px;color:var(--accent);line-height:1}
-.lead{margin:16px 0 8px}
-.pts{margin:0 0 20px;padding-left:20px;color:var(--muted)}
-.pts li{margin:4px 0}
-.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
-.subs{margin:0 0 20px}
-.subs-h{font-size:13px;color:var(--muted);margin-bottom:8px}
-.sub{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--bg)}
-.sub summary{cursor:pointer;padding:12px 14px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center}
-.sub summary::-webkit-details-marker{display:none}
-.sub summary::after{content:"+";color:var(--accent);font-size:22px;line-height:1}
-.sub[open] summary::after{content:"–"}
-.subbody{padding:0 14px 6px}
-.fin{text-align:center;color:var(--muted);padding:8px 0}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header><div class="bar"><span>LoL Basics</span><div class="track"><div class="fill" id="fill"></div></div><span id="cnt">0 / 0</span></div></header>
@@ -140,71 +102,9 @@ const CHAPTERS=[
 ];
 
 const KEY="lol-basics-done";
-/* Fortschritt wird nach Titel gespeichert, damit er beim Einfügen/Verschieben von Abschnitten erhalten bleibt.
-   Alte Einträge (nach Position gespeichert) werden einmalig umgewandelt. */
-let done=new Set();
-try{done=new Set(JSON.parse(localStorage.getItem(KEY)||"[]").map(x=>typeof x==="number"?(CHAPTERS[x]||{}).title:x).filter(Boolean))}catch(e){}
-function save(){try{localStorage.setItem(KEY,JSON.stringify([...done]))}catch(e){}}
-
-function media(c){
-  const v=(c.video||"").trim();
-  if(!v)return '<div class="ph"><div class="play">▶</div><div>Video folgt · ca. 40 Sek.</div></div>';
-  if(/youtu\.?be/.test(v)){
-    const m=v.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);
-    if(m)return '<iframe src="https://www.youtube-nocookie.com/embed/'+m[1]+'?rel=0&playsinline=1" title="'+c.title+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>';
-  }
-  return '<video controls playsinline preload="metadata" src="'+v+'"></video>';
-}
-
-function progress(){
-  const n=CHAPTERS.length,d=CHAPTERS.filter(c=>done.has(c.title)).length;
-  document.getElementById("fill").style.width=(d/n*100)+"%";
-  document.getElementById("cnt").textContent=d+" / "+n;
-}
-
-function subsHtml(c){
-  if(!c.subs||!c.subs.length)return "";
-  return '<div class="subs"><div class="subs-h">Mehr dazu – öffne, was dich interessiert</div>'+
-    c.subs.map(d=>
-      '<details class="sub"><summary>'+d.title+'</summary><div class="subbody"><div class="vid">'+media(d)+'</div>'+
-      '<p class="lead">'+d.text+'</p>'+
-      (d.points?'<ul class="pts">'+d.points.map(p=>'<li>'+p+'</li>').join("")+'</ul>':'')+
-      '</div></details>').join("")+'</div>';
-}
-
-const root=document.getElementById("chapters");
-CHAPTERS.forEach((c,i)=>{
-  const last=i===CHAPTERS.length-1;
-  const s=document.createElement("section");
-  s.className="ch";s.id="k"+(i+1);
-  s.innerHTML=
-    '<div class="num">Abschnitt '+(i+1)+' / '+CHAPTERS.length+'</div>'+
-    '<h2>'+c.title+'</h2>'+
-    '<div class="vid">'+media(c)+'</div>'+
-    '<p class="lead">'+c.text+'</p>'+
-    '<ul class="pts">'+c.points.map(p=>'<li>'+p+'</li>').join("")+'</ul>'+
-    subsHtml(c)+
-    '<div class="actions"><button class="btn ghost" data-i="'+i+'"></button>'+
-    (last?'<a class="btn" href="kapitel2.html">Weiter zu Kapitel 2 →</a>':'<a class="btn" href="#k'+(i+2)+'">Weiter →</a>')+'</div>';
-  root.appendChild(s);
-});
-function paint(btn){
-  const on=done.has(CHAPTERS[+btn.dataset.i].title);
-  btn.classList.toggle("on",on);
-  btn.textContent=on?"✓ completed":"erledigt?";
-}
-root.querySelectorAll("button[data-i]").forEach(b=>{
-  paint(b);
-  b.addEventListener("click",()=>{
-    const i=+b.dataset.i,t=CHAPTERS[i].title;
-    done.has(t)?done.delete(t):done.add(t);
-    save();paint(b);progress();
-    /* Beim Abhaken direkt zum nächsten Abschnitt springen */
-    const next=document.getElementById("k"+(i+2));
-    if(done.has(t)&&next)next.scrollIntoView({behavior:"smooth"});
-  });
-});
-progress();
+const LAST='<a class="btn" href="kapitel2.html">Weiter zu Kapitel 2 →</a>';
+const END="";
 </script>
+<script src="app.js"></script>
 </body>
 </html>
