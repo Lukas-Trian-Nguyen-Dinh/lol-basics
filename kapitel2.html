@@ -44,6 +44,7 @@ main{max-width:720px;margin:0 auto;padding:24px 16px 64px}
 .fin{text-align:center;color:var(--muted);padding:8px 0}
 kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:0 6px;background:var(--bg);color:var(--ink);font:600 .85em ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap}
 .hero .btn+.btn{margin-left:8px}
+.btn.off{opacity:.45;cursor:default}
 </style>
 </head>
 <body>
@@ -104,7 +105,7 @@ const CHAPTERS=[
 
 {title:"Team & Übersicht",video:"",
  text:"Im Spiel musst du dich mit deinem Team verständigen, ohne viel zu tippen. Dafür gibt es Pings und einen Chat. Alle Tasten sind Standardbelegungen und lassen sich in den Einstellungen unter Hotkeys ändern.",
- points:["Pings: Zeichen für dein Team, z. B. Gefahr oder Bin unterwegs","<kbd>Tab</kbd> halten: Übersicht mit Kills, Level und Items","<kbd>Enter</kbd>: Chat öffnen"],
+ points:["<kbd>Alt</kbd> + Klick: einfacher Ping an der Stelle des Mauszeigers","<kbd>G</kbd> halten und Maus ziehen: Ping-Rad mit z. B. Gefahr, Bin unterwegs oder Hilfe","<kbd>V</kbd> + Klick: Gefahr-Ping, um dein Team zu warnen","<kbd>Tab</kbd> halten: Übersicht mit Kills, Level und Items","<kbd>Enter</kbd>: Chat öffnen"],
 },
 
 {title:"Zusammenfassung",video:"",
@@ -115,8 +116,10 @@ const CHAPTERS=[
 ];
 
 const KEY="lol-basics-done-2";
+/* Fortschritt wird nach Titel gespeichert, damit er beim Einfügen/Verschieben von Abschnitten erhalten bleibt.
+   Alte Einträge (nach Position gespeichert) werden einmalig umgewandelt. */
 let done=new Set();
-try{done=new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){}
+try{done=new Set(JSON.parse(localStorage.getItem(KEY)||"[]").map(x=>typeof x==="number"?(CHAPTERS[x]||{}).title:x).filter(Boolean))}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify([...done]))}catch(e){}}
 
 function media(c){
@@ -130,9 +133,9 @@ function media(c){
 }
 
 function progress(){
-  const n=CHAPTERS.length;
-  document.getElementById("fill").style.width=(done.size/n*100)+"%";
-  document.getElementById("cnt").textContent=done.size+" / "+n;
+  const n=CHAPTERS.length,d=CHAPTERS.filter(c=>done.has(c.title)).length;
+  document.getElementById("fill").style.width=(d/n*100)+"%";
+  document.getElementById("cnt").textContent=d+" / "+n;
 }
 
 function subsHtml(c){
@@ -164,18 +167,26 @@ CHAPTERS.forEach((c,i)=>{
 const fin=document.createElement("p");
 fin.className="fin";fin.textContent="Viel Erfolg in deiner ersten Runde!";
 root.appendChild(fin);
+/* Navigation zwischen den Kapiteln. Sobald es Kapitel 3 gibt: den span durch <a class="btn" href="kapitel3.html">Kapitel 3 →</a> ersetzen. */
+const nav=document.createElement("div");
+nav.className="actions";
+nav.innerHTML='<a class="btn ghost" href="index.html">← Kapitel 1</a><span class="btn off" aria-disabled="true">Kapitel 3 folgt</span>';
+root.appendChild(nav);
 
 function paint(btn){
-  const on=done.has(+btn.dataset.i);
+  const on=done.has(CHAPTERS[+btn.dataset.i].title);
   btn.classList.toggle("on",on);
   btn.textContent=on?"✓ completed":"erledigt?";
 }
 root.querySelectorAll("button[data-i]").forEach(b=>{
   paint(b);
   b.addEventListener("click",()=>{
-    const i=+b.dataset.i;
-    done.has(i)?done.delete(i):done.add(i);
+    const i=+b.dataset.i,t=CHAPTERS[i].title;
+    done.has(t)?done.delete(t):done.add(t);
     save();paint(b);progress();
+    /* Beim Abhaken direkt zum nächsten Abschnitt springen */
+    const next=document.getElementById("k"+(i+2));
+    if(done.has(t)&&next)next.scrollIntoView({behavior:"smooth"});
   });
 });
 progress();

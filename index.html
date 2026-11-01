@@ -75,7 +75,8 @@ const CHAPTERS=[
   {title:"Gold",video:"",text:"Durch das Töten von Gegnern und Monstern erhältst du Gold. Sammle Gold, um Items zu kaufen und stärker zu werden."},
   {title:"Exp",video:"",text:"Du erhältst Exp, wenn du in der Nähe sterbender Gegner bist. Sammle Exp, um deine Stats zu erhöhen und Fähigkeiten zu verbessern."},
   {title:"Drache",video:"",text:"Das Team, welches den Drachen tötet, erhält einen permanenten Buff. Bezwinge 4 Drachen, um die Drachenseele zu erhalten."},
-  {title:"Void Monster",video:"",text:"Extrem starke Monster, die den Verlauf des Spiels entscheiden."},
+  {title:"Void Monster",video:"",text:"Extrem starke Monster aus der Leere, die den Verlauf des Spiels entscheiden. Sie erscheinen nacheinander in der Grube oben auf der Karte.",
+   points:["Grubs: erscheinen früh im Spiel als kleine Gruppe. Je mehr dein Team tötet, desto mehr Schaden macht ihr an Türmen","Herold: kommt nach den Grubs. Wer ihn tötet, kann ihn später rufen, damit er gegnerische Türme rammt","Baron Nashor: ersetzt den Herold und ist das stärkste Monster. Das Team erhält einen Buff, der seine Minions deutlich stärker macht – ideal, um Türme zu zerstören"]},
 ]},
 
 {title:"Checkliste, bevor du die erste Runde beginnst",video:"",
@@ -139,8 +140,10 @@ const CHAPTERS=[
 ];
 
 const KEY="lol-basics-done";
+/* Fortschritt wird nach Titel gespeichert, damit er beim Einfügen/Verschieben von Abschnitten erhalten bleibt.
+   Alte Einträge (nach Position gespeichert) werden einmalig umgewandelt. */
 let done=new Set();
-try{done=new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){}
+try{done=new Set(JSON.parse(localStorage.getItem(KEY)||"[]").map(x=>typeof x==="number"?(CHAPTERS[x]||{}).title:x).filter(Boolean))}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify([...done]))}catch(e){}}
 
 function media(c){
@@ -154,9 +157,9 @@ function media(c){
 }
 
 function progress(){
-  const n=CHAPTERS.length;
-  document.getElementById("fill").style.width=(done.size/n*100)+"%";
-  document.getElementById("cnt").textContent=done.size+" / "+n;
+  const n=CHAPTERS.length,d=CHAPTERS.filter(c=>done.has(c.title)).length;
+  document.getElementById("fill").style.width=(d/n*100)+"%";
+  document.getElementById("cnt").textContent=d+" / "+n;
 }
 
 function subsHtml(c){
@@ -175,7 +178,7 @@ CHAPTERS.forEach((c,i)=>{
   const s=document.createElement("section");
   s.className="ch";s.id="k"+(i+1);
   s.innerHTML=
-    '<div class="num">Kapitel '+(i+1)+' / '+CHAPTERS.length+'</div>'+
+    '<div class="num">Abschnitt '+(i+1)+' / '+CHAPTERS.length+'</div>'+
     '<h2>'+c.title+'</h2>'+
     '<div class="vid">'+media(c)+'</div>'+
     '<p class="lead">'+c.text+'</p>'+
@@ -186,16 +189,19 @@ CHAPTERS.forEach((c,i)=>{
   root.appendChild(s);
 });
 function paint(btn){
-  const on=done.has(+btn.dataset.i);
+  const on=done.has(CHAPTERS[+btn.dataset.i].title);
   btn.classList.toggle("on",on);
   btn.textContent=on?"✓ completed":"erledigt?";
 }
 root.querySelectorAll("button[data-i]").forEach(b=>{
   paint(b);
   b.addEventListener("click",()=>{
-    const i=+b.dataset.i;
-    done.has(i)?done.delete(i):done.add(i);
+    const i=+b.dataset.i,t=CHAPTERS[i].title;
+    done.has(t)?done.delete(t):done.add(t);
     save();paint(b);progress();
+    /* Beim Abhaken direkt zum nächsten Abschnitt springen */
+    const next=document.getElementById("k"+(i+2));
+    if(done.has(t)&&next)next.scrollIntoView({behavior:"smooth"});
   });
 });
 progress();
